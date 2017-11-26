@@ -121,3 +121,7 @@ lazy val testWorkspace = project
       s"-P:semanticdb:sourceroot:$sourceRoot"
     }
   )
+
+lazy val benchmarks = project
+  .enablePlugins(JmhPlugin)
+  .dependsOn(metaserver)
