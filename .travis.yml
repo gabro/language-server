@@ -12,9 +12,9 @@ jobs:
     # default stage is test
     - env: TEST="scalafmt"
       script: ./bin/scalafmt --test
-    - env: TEST="sbt test"
+    - env: TEST="test"
       script:
-        - sbt *:scalametaEnableCompletions test scalafixTest
+        - sbt -Dsbt.server.autostart=true *:scalametaEnableCompletions test scalafixTest
     # release only on merge commits or tags
     - stage: release
       script: if [[ "$(git rev-list --merges HEAD^..HEAD)" || "$TRAVIS_TAG" ]]; then sbt releaseEarly; else echo "skipping release"; fi
