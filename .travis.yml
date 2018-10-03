@@ -1,6 +1,13 @@
-language: scala
-jdk:
-  - oraclejdk8
+matrix:
+  include:
+    - language: scala
+      jdk:
+        - oraclejdk8
+    - language: node_js
+      node_js:
+        - "8"
+      before_script:
+        - cd vscode-extension
 
 stages:
   - name: test
@@ -18,6 +25,10 @@ jobs:
     - env: TEST="sbt-metals"
       script:
         - ./bin/run-scripted.sh
+    - env: TEST="vscode extension"
+      script:
+        - yarn install
+        - yarn build
     - stage: release
       script: sbt ci-release docs/docusaurusPublishGhpages
 
@@ -30,6 +41,7 @@ cache:
     - $HOME/.ivy2/cache
     - $HOME/.cache/coursier
     - $HOME/.coursier
+    - vscode-extension/node_modules
   yarn: true
 
 before_cache:

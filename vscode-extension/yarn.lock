@@ -1513,7 +1513,7 @@ vinyl@^2.0.1, vinyl@^2.0.2:
     remove-trailing-separator "^1.0.1"
     replace-ext "^1.0.0"
 
-vsce@^1.51.6:
+vsce@^1.51.1:
   version "1.51.1"
   resolved "https://registry.yarnpkg.com/vsce/-/vsce-1.51.1.tgz#b44fd194b1cf985a32957bf50dfee88f5d4d95c6"
   dependencies:
