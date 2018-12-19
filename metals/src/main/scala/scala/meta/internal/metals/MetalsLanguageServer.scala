@@ -23,6 +23,7 @@ import org.eclipse.lsp4j._
 import org.eclipse.lsp4j.jsonrpc.CompletableFutures
 import org.eclipse.lsp4j.jsonrpc.services.JsonNotification
 import org.eclipse.lsp4j.jsonrpc.services.JsonRequest
+import org.eclipse.lsp4j.jsonrpc.messages.{Either => LSPEither}
 import scala.concurrent.ExecutionContextExecutorService
 import scala.concurrent.Future
 import scala.concurrent.Promise
@@ -80,8 +81,8 @@ class MetalsLanguageServer(
   private var bloopServers: BloopServers = _
   private var bspServers: BspServers = _
   private var definitionProvider: DefinitionProvider = _
-  private val documentSymbolProvider: DocumentSymbolProvider =
-    new DocumentSymbolProvider(buffers)
+  private val documentSymbolProvider: DocumentSymbolProvider[DocumentSymbol] = new DocumentSymbolProvider(buffers)
+  private val legacyDocumentSymbolProvider: DocumentSymbolProvider[SymbolInformation] = new DocumentSymbolProvider(buffers)
   private var initializeParams: Option[InitializeParams] = None
   var tables: Tables = _
   private var statusBar: StatusBar = _
@@ -436,6 +437,7 @@ class MetalsLanguageServer(
     val path = params.getTextDocument.getUri.toAbsolutePath
     buffers.remove(path)
     documentSymbolProvider.discardSnapshot(path)
+    legacyDocumentSymbolProvider.discardSnapshot(path)
   }
 
   @JsonNotification("textDocument/didSave")
@@ -531,9 +533,13 @@ class MetalsLanguageServer(
   @JsonRequest("textDocument/documentSymbol")
   def documentSymbol(
       params: DocumentSymbolParams
-  ): CompletableFuture[util.List[DocumentSymbol]] =
+  ): CompletableFuture[util.List[LSPEither[SymbolInformation, DocumentSymbol]]] =
     CompletableFutures.computeAsync { _ =>
-      documentSymbolResult(params).asJava
+      if (config.documentSymbol.isLegacy) {
+        legacyDocumentSymbolResult(params).asJava.map(s => LSPEither.forLeft(s))
+      } else {
+        documentSymbolResult(params).asJava.map(s => LSPEither.forRight(s))
+      }
     }
 
   @JsonRequest("textDocument/formatting")
@@ -968,7 +974,14 @@ class MetalsLanguageServer(
       params: DocumentSymbolParams
   ): List[DocumentSymbol] = {
     documentSymbolProvider
-      .documentSymbols(params.getTextDocument.getUri.toAbsolutePath)
+      .documentSymbols(params.getTextDocument.getUri)
+  }
+
+  def legacyDocumentSymbolResult(
+      params: DocumentSymbolParams
+  ): List[SymbolInformation] = {
+    legacyDocumentSymbolProvider
+      .documentSymbols(params.getTextDocument.getUri)
   }
 
   private def newSymbolIndex(): OnDemandSymbolIndex = {

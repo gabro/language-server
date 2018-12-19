@@ -48,7 +48,8 @@ final case class MetalsServerConfig(
       default = true
     ),
     icons: Icons = Icons.default,
-    statistics: StatisticsConfig = StatisticsConfig.default
+    statistics: StatisticsConfig = StatisticsConfig.default,
+    documentSymbol: DocumentSymbolConfig = DocumentSymbolConfig.default
 ) {
   override def toString: String =
     List[String](
@@ -62,7 +63,8 @@ final case class MetalsServerConfig(
       s"no-initialized=$isNoInitialized",
       s"http=$isHttpEnabled",
       s"icons=$icons",
-      s"statistics=$statistics"
+      s"statistics=$statistics",
+      s"document-symbol=$documentSymbol"
     ).mkString("MetalsServerConfig(\n  ", ",\n  ", "\n)")
 }
 object MetalsServerConfig {
@@ -90,7 +92,8 @@ object MetalsServerConfig {
           statusBar = StatusBarConfig.logMessage,
           // Not strictly needed, but helpful while this integration matures.
           isHttpEnabled = true,
-          icons = Icons.unicode
+          icons = Icons.unicode,
+          documentSymbol = DocumentSymbolConfig.legacy
         )
       case "sublime" =>
         base.copy(

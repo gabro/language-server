@@ -1,36 +1,36 @@
 package scala.meta.internal.metals
 
 import scala.meta._
-import org.eclipse.lsp4j.SymbolKind
-import org.eclipse.lsp4j.DocumentSymbol
+import org.eclipse.{lsp4j => l}
 import MetalsEnrichments._
 import scala.collection.concurrent.TrieMap
 
 /**
- *  Retrieves all the symbols defined in a document
- *
- *  If the document doesn't parse, we fall back to the latest
- *  known snapshot of the document, if present
- *
- *  To avoid the snapshots to grow undefinitely, we only store
- *  the ones for the most recently requested documents
- */
-class DocumentSymbolProvider(buffers: Buffers) {
+  *  Retrieves all the symbols defined in a document
+  *
+  *  If the document doesn't parse, we fall back to the latest
+  *  known snapshot of the document, if present
+  *
+  *  To avoid the snapshots to grow undefinitely, we only store
+  *  the ones for the most recently requested documents
+  */
+class DocumentSymbolProvider[A: DocumentSymbolBuilder](buffers: Buffers) {
 
-  private val snapshots: TrieMap[AbsolutePath, List[DocumentSymbol]] =
+  private val snapshots: TrieMap[AbsolutePath, List[A]] =
     TrieMap.empty
 
-  def empty: List[DocumentSymbol] = Nil
+  private def empty: List[A] = Nil
 
   def documentSymbols(
-      path: AbsolutePath
-  ): List[DocumentSymbol] = {
+      uri: String
+  ): List[A] = {
+    val path = uri.toAbsolutePath
     path
       .toInputFromBuffers(buffers)
       .parse[Source]
       .toOption
       .map { source =>
-        val result = new SymbolTraverser().apply(source)
+        val result = new SymbolTraverser[A](uri).apply(source)
         snapshots.put(path, result)
         result
       }
@@ -41,14 +41,14 @@ class DocumentSymbolProvider(buffers: Buffers) {
   def discardSnapshot(path: AbsolutePath): Unit =
     snapshots.remove(path)
 
-  private class SymbolTraverser() {
+  private class SymbolTraverser[A](uri: String)(implicit documentSymbolBuilder: DocumentSymbolBuilder[A]) {
 
-    def apply(tree: Tree): List[DocumentSymbol] = {
+    def apply(tree: Tree): List[A] = {
       traverser.apply(tree)
       builder.result()
     }
 
-    private val builder = List.newBuilder[DocumentSymbol]
+    private val builder = List.newBuilder[A]
 
     val traverser = new Traverser {
       var currentRoot: Option[Tree] = None
@@ -61,11 +61,11 @@ class DocumentSymbolProvider(buffers: Buffers) {
         }
 
         def addName(name: String): Unit = {
-          builder += new DocumentSymbol(
+          builder += documentSymbolBuilder(
             name,
             symbolKind(currentNode),
             currentNode.pos.toLSP,
-            currentNode.pos.toLSP
+            uri
           )
         }
 
@@ -93,10 +93,10 @@ class DocumentSymbolProvider(buffers: Buffers) {
   }
 
   /** All names within the node.
-   *  - if it's a package, it will have its qualified name: `package foo.bar.buh`
-   *  - if it's a val/var, it may contain several names in the pattern: `val (x, y, z) = ...`
-   *  - for everything else it's just its normal name (if it has one)
-   */
+    *  - if it's a package, it will have its qualified name: `package foo.bar.buh`
+    *  - if it's a val/var, it may contain several names in the pattern: `val (x, y, z) = ...`
+    *  - for everything else it's just its normal name (if it has one)
+    */
   private def names(tree: Tree): List[String] = tree match {
     case t: Pkg => qualifiedName(t).toList
     case t: Defn.Val => patternNames(t.pats)
@@ -132,20 +132,33 @@ class DocumentSymbolProvider(buffers: Buffers) {
     tpeOpt.filter(_.is[Type.Function]).nonEmpty
   }
 
-  private def symbolKind(tree: Tree): SymbolKind = tree match {
-    case f if isFunction(f) => SymbolKind.Function
-    case _: Decl.Var | _: Defn.Var => SymbolKind.Variable
-    case _: Decl.Val | _: Defn.Val => SymbolKind.Constant
-    case _: Decl.Def | _: Defn.Def => SymbolKind.Method
-    case _: Decl.Type | _: Defn.Type => SymbolKind.Field
-    case _: Defn.Macro => SymbolKind.Constructor
-    case _: Defn.Class => SymbolKind.Class
-    case _: Defn.Trait => SymbolKind.Interface
-    case _: Defn.Object => SymbolKind.Module
-    case _: Pkg.Object => SymbolKind.Namespace
-    case _: Pkg => SymbolKind.Package
-    case _: Type.Param => SymbolKind.TypeParameter
-    case _: Lit.Null => SymbolKind.Null
-    case _ => SymbolKind.Field
+  private def symbolKind(tree: Tree): l.SymbolKind = tree match {
+    case f if isFunction(f) => l.SymbolKind.Function
+    case _: Decl.Var | _: Defn.Var => l.SymbolKind.Variable
+    case _: Decl.Val | _: Defn.Val => l.SymbolKind.Constant
+    case _: Decl.Def | _: Defn.Def => l.SymbolKind.Method
+    case _: Decl.Type | _: Defn.Type => l.SymbolKind.Field
+    case _: Defn.Macro => l.SymbolKind.Constructor
+    case _: Defn.Class => l.SymbolKind.Class
+    case _: Defn.Trait => l.SymbolKind.Interface
+    case _: Defn.Object => l.SymbolKind.Module
+    case _: Pkg.Object => l.SymbolKind.Namespace
+    case _: Pkg => l.SymbolKind.Package
+    case _: Type.Param => l.SymbolKind.TypeParameter
+    case _: Lit.Null => l.SymbolKind.Null
+    case _ => l.SymbolKind.Field
   }
+}
+
+private trait DocumentSymbolBuilder[A] {
+  def apply(name: String, kind: l.SymbolKind, range: l.Range, uri: String): A
+}
+private object DocumentSymbolBuilder {
+  implicit val documentSymbolBuilder: DocumentSymbolBuilder[l.DocumentSymbol] =
+    (name, symbolKind, range, uri) =>
+      new l.DocumentSymbol(name, symbolKind, range, range)
+
+  implicit val symbolInformationBuilder: DocumentSymbolBuilder[l.SymbolInformation] =
+    (name, symbolKind, range, uri) =>
+      new l.SymbolInformation(name, symbolKind, new l.Location(uri, range))
 }
