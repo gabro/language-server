@@ -18,6 +18,8 @@ import scala.meta.internal.metals.PositionSyntax._
 import scala.meta.internal.mtags.MtagsEnrichments._
 import scala.meta.io.AbsolutePath
 import scala.{meta => m}
+import scalafix.interfaces.ScalafixDiagnostic
+import scalafix.internal.interfaces.ScalafixDiagnosticImpl
 
 /**
  * Converts diagnostics from the build server and Scalameta parser into LSP diagnostics.
@@ -43,6 +45,8 @@ final class Diagnostics(
     TrieMap.empty[AbsolutePath, util.Queue[Diagnostic]]
   private val syntaxError =
     TrieMap.empty[AbsolutePath, Diagnostic]
+  private val lintErrors =
+    TrieMap.empty[AbsolutePath, List[Diagnostic]]
   private val snapshots =
     TrieMap.empty[AbsolutePath, Input.VirtualFile]
   private val lastPublished =
@@ -83,6 +87,20 @@ final class Diagnostics(
       DiagnosticSeverity.Error,
       "scalameta"
     )
+    publishDiagnostics(path)
+  }
+
+  def onLintErrors(
+      path: AbsolutePath,
+      diagnostics: List[ScalafixDiagnostic]
+  ): Unit = {
+    lintErrors(path) = diagnostics.map { diagnostic =>
+      val d = ScalafixDiagnosticImpl.fromJava(diagnostic)
+      new Diagnostic(
+        d.position.toLSP,
+        d.message
+      )
+    }
     publishDiagnostics(path)
   }
 
@@ -166,6 +184,11 @@ final class Diagnostics(
       if !isDuplicate
     } {
       all.add(d)
+    }
+    for {
+      dd <- lintErrors.get(path)
+    } {
+      dd.map(all.add)
     }
     languageClient.publishDiagnostics(new PublishDiagnosticsParams(uri, all))
   }

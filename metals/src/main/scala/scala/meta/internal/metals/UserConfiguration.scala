@@ -17,7 +17,9 @@ case class UserConfiguration(
     javaHome: Option[String] = None,
     sbtScript: Option[String] = None,
     scalafmtConfigPath: RelativePath =
-      UserConfiguration.default.scalafmtConfigPath
+      UserConfiguration.default.scalafmtConfigPath,
+    scalafixConfigPath: RelativePath =
+      UserConfiguration.default.scalafixConfigPath
 )
 object UserConfiguration {
   def CascadeCompile = "cascade"
@@ -30,6 +32,7 @@ object UserConfiguration {
 
   object default {
     def scalafmtConfigPath = RelativePath(".scalafmt.conf")
+    def scalafixConfigPath = RelativePath(".scalafix.conf")
     def compileOnSave = CurrentProjectCompile
   }
 
@@ -103,6 +106,10 @@ object UserConfiguration {
       getStringKey("scalafmt-config-path")
         .map(RelativePath(_))
         .getOrElse(default.scalafmtConfigPath)
+    val scalafixConfigPath =
+      getStringKey("scalafix-config-path")
+        .map(RelativePath(_))
+        .getOrElse(default.scalafixConfigPath)
     val sbtScript =
       getStringKey("sbt-script")
 
@@ -111,7 +118,8 @@ object UserConfiguration {
         UserConfiguration(
           javaHome,
           sbtScript,
-          scalafmtConfigPath
+          scalafmtConfigPath,
+          scalafixConfigPath
         )
       )
     } else {

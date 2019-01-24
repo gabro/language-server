@@ -131,6 +131,7 @@ class MetalsLanguageServer(
   private var initializeParams: Option[InitializeParams] = None
   private var referencesProvider: ReferenceProvider = _
   private var workspaceSymbols: WorkspaceSymbolProvider = _
+  private var scalafixProvider: ScalafixProvider = _
   var tables: Tables = _
   var statusBar: StatusBar = _
   private var embedded: Embedded = _
@@ -264,6 +265,11 @@ class MetalsLanguageServer(
       definitionIndex,
       pkg => referencesProvider.referencedPackages.mightContain(pkg),
       interactiveSemanticdbs.toFileOnDisk
+    )
+    scalafixProvider = new ScalafixProvider(
+      workspace,
+      () => userConfig,
+      diagnostics
     )
     doctor = new Doctor(
       workspace,
@@ -464,6 +470,7 @@ class MetalsLanguageServer(
     // Update in-memory buffer contents from LSP client
     buffers.put(path, params.getTextDocument.getText)
     trees.didChange(path)
+    scalafixProvider.didChange(path)
     if (path.isDependencySource(workspace)) {
       CompletableFutures.computeAsync { _ =>
         // trigger compilation in preparation for definition requests
@@ -532,6 +539,7 @@ class MetalsLanguageServer(
     // read file from disk, we only remove files from buffers on didClose.
     buffers.put(path, path.toInput.text)
     trees.didChange(path)
+    scalafixProvider.didChange(path)
     onChange(List(path))
   }
 

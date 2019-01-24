@@ -40,6 +40,7 @@ final class FormattingProvider(
 
   private def scalafmtConf: AbsolutePath =
     workspace.resolve(userConfig().scalafmtConfigPath)
+
   private val reporter: ScalafmtReporter = new ScalafmtReporter {
     private var downloadingScalafmt = Promise[Unit]()
     override def error(file: Path, message: String): Unit = {

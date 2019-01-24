@@ -149,9 +149,13 @@ lazy val metals = project
       "com.thoughtworks.qdox" % "qdox" % "2.0-M9",
       // for finding paths of global log/cache directories
       "io.github.soc" % "directories" % "11",
+      // for scalafix integration
+      "ch.epfl.scala" % "scalafix-interfaces" % "0.9.1",
       // ==================
       // Scala dependencies
       // ==================
+      // for scalafix integration
+      "ch.epfl.scala" % "scalafix-cli_2.12.7" % "0.9.1",
       "org.scalameta" %% "scalafmt-dynamic" % V.scalafmt,
       // For reading classpaths.
       "org.scalameta" %% "symtab" % V.scalameta,
