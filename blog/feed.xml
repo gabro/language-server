@@ -4,7 +4,7 @@
         <title>Metals Blog</title>
         <link>http://scalameta.org/metals/blog</link>
         <description>The best place to stay up-to-date with the latest Metals news and events.</description>
-        <lastBuildDate>Fri, 14 Dec 2018 06:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sun, 12 Apr 2020 06:00:00 GMT</lastBuildDate>
         <docs>http://blogs.law.harvard.edu/tech/rss</docs>
         <generator>Feed for Node.js</generator>
         <image>
@@ -12,7 +12,55 @@
             <url>http://scalameta.org/metals/img/scalameta-logo.png</url>
             <link>http://scalameta.org/metals/blog</link>
         </image>
-        <copyright>Copyright © 2018 Metals</copyright>
+        <copyright>Copyright © 2019 Metals</copyright>
+        <item>
+            <title><![CDATA[Metals v0.5.0]]></title>
+            <link>http://scalameta.org/metals/blog/2020/04/12/mercury.html</link>
+            <guid>http://scalameta.org/metals/blog/2020/04/12/mercury.html</guid>
+            <pubDate>Sun, 12 Apr 2020 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>We are excited to announce the release of Metals v0.5, codename &quot;Mercury&quot; 🎉 This release introduces new features, performance improvements and bug fixes with highlights including:</p> <ul> <li>code completions</li> <li>parameter hints</li> <li>show type at point</li> <li>code fo...</li></ul>]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Metals v0.4.4]]></title>
+            <link>http://scalameta.org/metals/blog/2019/02/01/tin.html</link>
+            <guid>http://scalameta.org/metals/blog/2019/02/01/tin.html</guid>
+            <pubDate>Fri, 01 Feb 2019 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>Metals is a language server for Scala that works with VS Code, Atom, Vim,
+Sublime Text and Emacs. Metals is developed at the
+<a href="https://scala.epfl.ch/">Scala Center</a> along with contributors from the
+community.</p>
+]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Metals v0.4.0]]></title>
+            <link>http://scalameta.org/metals/blog/2019/01/24/tin.html</link>
+            <guid>http://scalameta.org/metals/blog/2019/01/24/tin.html</guid>
+            <pubDate>Thu, 24 Jan 2019 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>We are excited to announce the release of Metals v0.4, codename &quot;Tin&quot; 🎉 Metals
+is a language server for Scala that works with VS Code, Atom, Vim, Sublime Text
+and Emacs. Metals is developed at the <a href="https://scala.epfl.ch/">Scala Center</a>
+with contributors from the community.</p>
+]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Low-memory symbol indexing with bloom filters]]></title>
+            <link>http://scalameta.org/metals/blog/2019/01/22/bloom-filters.html</link>
+            <guid>http://scalameta.org/metals/blog/2019/01/22/bloom-filters.html</guid>
+            <pubDate>Tue, 22 Jan 2019 06:00:00 GMT</pubDate>
+            <description><![CDATA[<p>The latest Metals release introduces three new in-memory indexes to implement
+the features &quot;find symbol references&quot; and &quot;fuzzy symbol search&quot;. Indexes are
+important to provide fast response times for user requests but they come at the
+price of higher memory usage. To keep memory usage low, Metals uses a data
+structure called bloom filters that implements space-efficient sets. Thanks to
+bloom filters, the three new indexes added in the last release use only a few
+megabytes of memory even for large projects with &gt;500k lines of code.</p>
+<p>In this post, we look into how Metals uses bloom filters for fast indexing with
+small memory footprint. We explain what bloom filters are and how we can encode
+problems like fuzzy searching to take advantage of the nice properties of bloom
+filters. Finally, we evaluate these new features on a real-world project: the
+<a href="https://github.com/akka/akka">Akka</a> build.</p>
+]]></description>
+        </item>
         <item>
             <title><![CDATA[Metals v0.3.2]]></title>
             <link>http://scalameta.org/metals/blog/2018/12/14/iron.html</link>

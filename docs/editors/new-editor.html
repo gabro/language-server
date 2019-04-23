@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Integrating a new editor · Metals</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Metals is a language server implemented in Scala that communicates with a single&lt;/p&gt;
 "/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Integrating a new editor · Metals"/><meta property="og:type" content="website"/><meta property="og:url" content="http://scalameta.org/metals/index.html"/><meta property="og:description" content="&lt;p&gt;Metals is a language server implemented in Scala that communicates with a single&lt;/p&gt;
-"/><meta property="og:image" content="http://scalameta.org/metals/img/scalameta-logo.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://scalameta.org/metals/img/scalameta-logo.png"/><link rel="shortcut icon" href="/metals/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css"/><link rel="alternate" type="application/atom+xml" href="http://scalameta.org/metals/blog/atom.xml" title="Metals Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="http://scalameta.org/metals/blog/feed.xml" title="Metals Blog RSS Feed"/><link rel="stylesheet" href="/metals/css/custom.css"/><link rel="stylesheet" href="/metals/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/metals/"><img class="logo" src="/metals/img/scalameta-logo.png" alt="Metals"/><h2 class="headerTitleWithLogo">Metals</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/metals/docs/editors/overview.html" target="_self">Docs</a></li><li class=""><a href="/metals/blog/" target="_self">Blog</a></li><li class=""><a href="https://github.com/gabro/metals" target="_blank">GitHub</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Text Editors</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Text Editors</h3><ul><li class="navListItem"><a class="navItem" href="/metals/docs/editors/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/editors/vscode.html">Visual Studio Code</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/editors/atom.html">Atom</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/editors/vim.html">Vim</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/editors/sublime.html">Sublime Text</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/editors/emacs.html">Emacs</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/metals/docs/editors/new-editor.html">Integrating a new editor</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Build Tools</h3><ul><li class="navListItem"><a class="navItem" href="/metals/docs/build-tools/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/build-tools/sbt.html">sbt</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/build-tools/bloop.html">Bloop</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/build-tools/new-build-tool.html">Integrating a new build tool</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Contributing</h3><ul><li class="navListItem"><a class="navItem" href="/metals/docs/contributors/project-goals.html">Project Goals</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/contributors/getting-started.html">Contributing to Metals</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/contributors/updating-website.html">Contributing to the website</a></li></ul></div></div></section></div><script>
+"/><meta property="og:image" content="http://scalameta.org/metals/img/scalameta-logo.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="http://scalameta.org/metals/img/scalameta-logo.png"/><link rel="shortcut icon" href="/metals/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css"/><link rel="alternate" type="application/atom+xml" href="http://scalameta.org/metals/blog/atom.xml" title="Metals Blog ATOM Feed"/><link rel="alternate" type="application/rss+xml" href="http://scalameta.org/metals/blog/feed.xml" title="Metals Blog RSS Feed"/><link rel="stylesheet" href="/metals/css/custom.css"/><link rel="stylesheet" href="/metals/css/main.css"/></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/metals/"><img class="logo" src="/metals/img/scalameta-logo.png" alt="Metals"/><h2 class="headerTitleWithLogo">Metals</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/metals/docs/editors/overview.html" target="_self">Docs</a></li><li class=""><a href="/metals/blog/" target="_self">Blog</a></li><li class=""><a href="https://github.com/scalameta/metals" target="_blank">GitHub</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Text Editors</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Text Editors</h3><ul><li class="navListItem"><a class="navItem" href="/metals/docs/editors/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/editors/vscode.html">Visual Studio Code</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/editors/atom.html">Atom</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/editors/vim.html">Vim</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/editors/sublime.html">Sublime Text</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/editors/emacs.html">Emacs</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/metals/docs/editors/new-editor.html">Integrating a new editor</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Build Tools</h3><ul><li class="navListItem"><a class="navItem" href="/metals/docs/build-tools/overview.html">Overview</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/build-tools/sbt.html">sbt</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/build-tools/bloop.html">Bloop</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/build-tools/new-build-tool.html">Integrating a new build tool</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Contributing</h3><ul><li class="navListItem"><a class="navItem" href="/metals/docs/contributors/project-goals.html">Project Goals</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/contributors/getting-started.html">Contributing to Metals</a></li><li class="navListItem"><a class="navItem" href="/metals/docs/contributors/updating-website.html">Contributing to the website</a></li></ul></div></div></section></div><script>
             document.addEventListener('DOMContentLoaded', function() {
               createToggler('#navToggler', '#docsNav', 'docsSliderActive');
               createToggler('#tocToggler', 'body', 'tocActive');
@@ -27,19 +27,20 @@
                 };
               }
             });
-        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/gabro/metals/edit/master/docs/editors/new-editor.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">Integrating a new editor</h1></header><article><div><span><p>Metals is a language server implemented in Scala that communicates with a single
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="https://github.com/scalameta/metals/edit/master/docs/editors/new-editor.md" target="_blank" rel="noreferrer noopener">Edit</a><h1 class="postHeaderTitle">Integrating a new editor</h1></header><article><div><span><p>Metals is a language server implemented in Scala that communicates with a single
 client over <a href="https://www.jsonrpc.org/specification">JSON-RPC</a>.</p>
 <h2><a class="anchor" aria-hidden="true" id="requirements"></a><a href="#requirements" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Requirements</h2>
-<p><strong>Java 8</strong>. Metals does not work with Java 11 yet so make sure the JAVA_HOME
-environment variable points to Java 8.</p>
+<p><strong>OpenJDK or Oracle Java 8</strong>. Eclipse OpenJ9 and Java 11 are not
+supported, please make sure the <code>JAVA_HOME</code> environment variable
+points to valid Java 8 installation.</p>
 <p><strong>macOS, Linux or Windows</strong>. Metals is developed on macOS and every PR is
 tested on Ubuntu+Windows.</p>
 <p><strong>Scala 2.12 and 2.11</strong>. Metals works only with Scala versions 2.12.8, 2.12.7, 2.12.6, 2.12.5, 2.12.4, 2.11.12, 2.11.11, 2.11.10 and 2.11.9.
-Note that 2.10.x and 2.13.0-M5 are not supported.</p>
+Note that 2.10.x and 2.13.x are not supported.</p>
 <h2><a class="anchor" aria-hidden="true" id="starting-the-server"></a><a href="#starting-the-server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Starting the server</h2>
 <p>Use <a href="https://github.com/coursier/coursier">Coursier</a> to obtain the JVM classpath
 of Metals:</p>
-<pre><code class="hljs css language-sh">coursier bootstrap org.scalameta:metals_2.12:0.4.0-SNAPSHOT -o metals -f
+<pre><code class="hljs css language-sh">coursier bootstrap org.scalameta:metals_2.12:0.5.1-SNAPSHOT -o metals -f
 </code></pre>
 <p>(optional) It is recommended to enable JVM string de-duplication and provide
 generous stack size and memory options.</p>
@@ -47,9 +48,8 @@ generous stack size and memory options.</p>
   --java-opt -XX:+UseG1GC \
   --java-opt -XX:+UseStringDeduplication  \
   --java-opt -Xss4m \
-  --java-opt -Xms1G \
-  --java-opt -Xmx4G \
-  org.scalameta:metals_2.12:0.4.0-SNAPSHOT -o metals -f
+  --java-opt -Xms100m \
+  org.scalameta:metals_2.12:0.5.1-SNAPSHOT -o metals -f
 </code></pre>
 <p>See <a href="#metals-server-properties">Metals server properties</a> for additional system
 properties that are supported by the server.</p>
@@ -117,6 +117,8 @@ This mode is used by the VS Code client.</li>
 <li><code>on</code>: the <code>metals/status</code> notification is supported.</li>
 <li><code>log-message</code>: translate <code>metals/status</code> notifications to <code>window/logMessage</code>
 notifications. Used by vim-lsc at the moment.</li>
+<li><code>show-message</code>: translate <code>metals/status</code> notifications to
+<code>window/showMessage</code> notifications. Used by coc.nvim at the moment.</li>
 </ul>
 <h3><a class="anchor" aria-hidden="true" id="dmetalsslow-task"></a><a href="#dmetalsslow-task" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>-Dmetals.slow-task</code></h3>
 <p>Possible values:</p>
@@ -125,6 +127,13 @@ notifications. Used by vim-lsc at the moment.</li>
 <li><code>on</code>: the <code>metals/slowTask</code> request is fully supported.</li>
 <li><code>status-bar</code>: the <code>metals/slowTask</code> request is not supported, but send updates
 about slow tasks via <code>metals/status</code>.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="dmetalsinput-box"></a><a href="#dmetalsinput-box" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>-Dmetals.input-box</code></h3>
+<p>Possible values:</p>
+<ul>
+<li><code>off</code> (default): the <code>metals/inputBox</code> request is not supported. In this case,
+Metals tries to fallback to <code>window/showMessageRequest</code> when possible.</li>
+<li><code>on</code>: the <code>metals/inputBox</code> request is fully supported.</li>
 </ul>
 <h3><a class="anchor" aria-hidden="true" id="dmetalsexecute-client-command"></a><a href="#dmetalsexecute-client-command" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>-Dmetals.execute-client-command</code></h3>
 <p>Possible values:</p>
@@ -151,16 +160,6 @@ notification with an intrusive alert.</li>
 <li><code>off</code>: don't send any <code>window/showMessageRequest</code> requests</li>
 <li><code>log-message</code>: send <code>window/showMessageRequest</code> requests as
 <code>window/logMessage</code> instead.</li>
-</ul>
-<h3><a class="anchor" aria-hidden="true" id="dmetalsdocument-symbol"></a><a href="#dmetalsdocument-symbol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>-Dmetals.document-symbol</code></h3>
-<p>Possible values:</p>
-<ul>
-<li><code>document-symbol</code> (default): return <code>DocumentSymbol[]</code> for
-<code>textDocument/documentSymbol</code> requests.</li>
-<li><code>symbol-information</code>: return <code>SymbolInformation[]</code> for
-<code>textDocument/documentSymbol</code> requests. This option is used by editor clients
-like vim-lsc that don't yet support the new hierarchical <code>DocumentSymbol</code> data
-structure.</li>
 </ul>
 <h3><a class="anchor" aria-hidden="true" id="dmetalshttp"></a><a href="#dmetalshttp" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>-Dmetals.http</code></h3>
 <p>Possible values:</p>
@@ -246,6 +245,35 @@ Should be relative to the workspace root directory and use forward slashes / for
 separators (even on Windows).</p>
 <p><strong>Default</strong>: .scalafmt.conf</p>
 <p><strong>Note</strong>: this property can also be defined as user configuration option <a href="#scalafmt-config-path">Scalafmt config path</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="dmetalssignature-helpcommand"></a><a href="#dmetalssignature-helpcommand" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>-Dmetals.signature-help.command</code></h3>
+<p>An optional string value for a command identifier to trigger parameter hints
+(<code>textDocument/signatureHelp</code>) in the editor. Metals uses this setting to
+populate <code>CompletionItem.command</code> for completion items that move the cursor
+inside an argument list. For example, when completing <code>&quot;&quot;.stripSu@@</code> into
+<code>&quot;&quot;.stripSuffix(@@)</code>, Metals will automatically trigger parameter hints if this
+setting is provided by the editor.</p>
+<p>Default value:</p>
+<ul>
+<li><code>&quot;editor.action.triggerParameterHints&quot;</code>: when editor client is Visual Studio
+Code or coc.nvim.</li>
+<li>empty: for all other editors.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="dmetalscompletioncommand"></a><a href="#dmetalscompletioncommand" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>-Dmetals.completion.command</code></h3>
+<p>An optional string value for a command identifier to trigger completion
+(<code>textDocument/signatureHelp</code>) in the editor.</p>
+<p>Default value:</p>
+<ul>
+<li><code>&quot;editor.action.triggerSuggest&quot;</code>: when editor client is Visual Studio Code or
+coc.nvim.</li>
+<li>empty: for all other editors.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="dmetalspcdebug"></a><a href="#dmetalspcdebug" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>-Dmetals.pc.debug</code></h3>
+<p>Possible values:</p>
+<ul>
+<li><code>off</code> (default): do not log verbose debugging information for the presentation
+compiler.</li>
+<li><code>on</code>: log verbose debugging information for the presentation compiler.</li>
+</ul>
 <h2><a class="anchor" aria-hidden="true" id="metals-user-configuration"></a><a href="#metals-user-configuration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Metals user configuration</h2>
 <p>Users can customize the Metals server through the LSP
 <code>workspace/didChangeConfiguration</code> notification. Unlike server properties, it is
@@ -320,6 +348,25 @@ indexing itself is cheap.</p>
 <p><strong>Command</strong>: <code>&quot;doctor-run&quot;</code></p>
 <p><strong>Arguments</strong>: <code>null</code></p>
 <p>Open the Metals doctor to troubleshoot potential problems.</p>
+<h3><a class="anchor" aria-hidden="true" id="cascade-compile"></a><a href="#cascade-compile" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Cascade compile</h3>
+<p><strong>Command</strong>: <code>&quot;compile-cascade&quot;</code></p>
+<p><strong>Arguments</strong>: <code>null</code></p>
+<p>Compile the current file along with all build targets in this workspace that depend on it.</p>
+<p>By default, Metals compiles only the current build target and its dependencies when saving a file.
+Run the cascade compile task to additionally compile the inverse dependencies of the current build target.
+For example, if you change the API in main sources and run cascade compile then it will also compile the
+test sources that depend on main.</p>
+<h3><a class="anchor" aria-hidden="true" id="cancel-compilation"></a><a href="#cancel-compilation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Cancel compilation</h3>
+<p><strong>Command</strong>: <code>&quot;compile-cancel&quot;</code></p>
+<p><strong>Arguments</strong>: <code>null</code></p>
+<p>Cancel the currently ongoing compilation, if any.</p>
+<h3><a class="anchor" aria-hidden="true" id="switch-build-server"></a><a href="#switch-build-server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Switch build server</h3>
+<p><strong>Command</strong>: <code>&quot;bsp-switch&quot;</code></p>
+<p><strong>Arguments</strong>: <code>null</code></p>
+<p>Prompt the user to select a new build server to connect to.</p>
+<p>This command does nothing in case there are less than two installed build
+servers on the computer. In case the user has multiple BSP servers installed
+then Metals will prompt the user to select which server to use.</p>
 <h2><a class="anchor" aria-hidden="true" id="metals-client-commands"></a><a href="#metals-client-commands" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Metals client commands</h2>
 <p>The Metals server can send one of the following client commands if the client
 supports the <code>metals/executeClientCommand</code> notification,</p>
@@ -341,7 +388,7 @@ supports the <code>metals/executeClientCommand</code> notification,</p>
 <p>Metals has an optional web interface that can be used to trigger server commands
 and respond to server requests. This interface is not intended for regular
 users, it exists only to help editor plugin authors integrate with Metals.</p>
-<p><img src="/metals/docs/assets/metals-http-client.png" alt="Metals http client"></p>
+<p><img src="https://i.imgur.com/t5RJ3q6.png" alt="Metals http client"></p>
 <p>The server is enabled by passing the <code>-Dmetals.http=on</code> system property. The
 server runs by default at <a href="http://localhost:5031/"><code>http://localhost:5031</code></a>.
 When the port 5031 is taken the next free increment is chosen instead (5032,
@@ -358,7 +405,7 @@ them to improve the user experience.</p>
 start of a long running process with unknown estimated total time. A
 <code>cancel: true</code> response from the client cancels the task. A <code>$/cancelRequest</code>
 request from the server indicates that the task has completed.</p>
-<p><img src="/metals/docs/assets/metals-slow-task.gif" alt="Metals slow task"></p>
+<p><img src="https://i.imgur.com/nsjWHWR.gif" alt="Metals slow task"></p>
 <p>The difference between <code>metals/slowTask</code> and <code>window/showMessageRequest</code> is that
 <code>slowTask</code> is time-sensitive and the interface should display a timer for how
 long the task has been running while <code>showMessageRequest</code> is static.</p>
@@ -396,7 +443,7 @@ attention from the user.</p>
 <p>In general, Metals uses status notifications to update the user about ongoing
 events in the server such as batch compilation in the build server or when a
 successful connection was established with the build server.</p>
-<p><img src="/metals/docs/assets/metals-status.gif" alt="Metals status bar"></p>
+<p><img src="https://i.imgur.com/XX9CLRH.gif" alt="Metals status bar"></p>
 <p>The &quot;🚀 Imported build&quot; and &quot;🔄 Compiling explorer&quot; messages at the bottom of
 the window are <code>metals/status</code> notifications.</p>
 <p><em>Notification</em>:</p>
@@ -421,7 +468,7 @@ the window are <code>metals/status</code> notifications.</p>
 <p>The Metals did focus notification is sent from the client to the server when the
 editor changes focus to a new text document. Unlike <code>textDocument/didOpen</code>, the
 did focus notification is sent even when the text document is already open.</p>
-<p><img src="/metals/docs/assets/metals-did-focus.gif" alt="Metals did focus"></p>
+<p><img src="https://i.imgur.com/XjTtAZK.gif" alt="Metals did focus"></p>
 <p>Observe that the compilation error appears as soon as <code>UserTest.scala</code> is
 focused even if the text document was already open before. The LSP
 <code>textDocument/didOpen</code> notification is only sent the first time a document so it
@@ -446,6 +493,49 @@ trigger an action inside the editor. This notification is a copy of the
 <li>method: <code>metals/executeClientCommand</code></li>
 <li>params: <code>ExecuteCommandParams</code>, as defined in LSP.</li>
 </ul>
+<h3><a class="anchor" aria-hidden="true" id="metals-inputbox"></a><a href="#metals-inputbox" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>metals/inputBox</code></h3>
+<p>The Metals input box request is sent from the server to the client to let the
+user provide a string value for a given prompt. Unlike
+<code>window/showMessageRequest</code>, the <code>metals/inputBox</code> request allows the user to
+provide a custom response instead of picking a pre-selected value.</p>
+<p><em>Request</em>:</p>
+<ul>
+<li>method: <code>metals/inputBox</code></li>
+<li>params: <code>MetalsInputBoxParams</code> defined as follows. Note, matches
+<a href="https://code.visualstudio.com/api/references/vscode-api#InputBoxOptions"><code>InputBoxOptions</code></a>
+in the Visual Studio Code API:</li>
+</ul>
+<pre><code class="hljs css language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> MetalsInputBoxParams {
+  <span class="hljs-comment">/**
+   * The value to prefill in the input box.
+   */</span>
+  value?: <span class="hljs-built_in">string</span>;
+  <span class="hljs-comment">/**
+   * The text to display underneath the input box.
+   */</span>
+  prompt?: <span class="hljs-built_in">string</span>;
+  <span class="hljs-comment">/**
+   * An optional string to show as place holder in the input box to guide the user what to type.
+   */</span>
+  placeHolder?: <span class="hljs-built_in">string</span>;
+  <span class="hljs-comment">/**
+   * Set to `true` to show a password prompt that will not show the typed value.
+   */</span>
+  password?: <span class="hljs-built_in">boolean</span>;
+  <span class="hljs-comment">/**
+   * Set to `true` to keep the input box open when focus moves to another part of the editor or to another window.
+   */</span>
+  ignoreFocusOut?: <span class="hljs-built_in">boolean</span>;
+}
+</code></pre>
+<ul>
+<li>result: <code>MetalsInputBoxResult</code> defined as follows:</li>
+</ul>
+<pre><code class="hljs css language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> MetalsInputBoxResult {
+  value?: <span class="hljs-built_in">string</span>;
+  cancelled?: <span class="hljs-built_in">boolean</span>;
+}
+</code></pre>
 <h2><a class="anchor" aria-hidden="true" id="language-server-protocol"></a><a href="#language-server-protocol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Language Server Protocol</h2>
 <p>Consult the
 <a href="https://microsoft.github.io/language-server-protocol/specification">LSP specification</a>
@@ -504,9 +594,33 @@ marked as read-only to prevent the user from editing them.</li>
 <li>The destination location can either be a Scala or Java source file. It is
 recommended to have a Java language server installed to navigate Java sources.</li>
 </ul>
+<h3><a class="anchor" aria-hidden="true" id="textdocument-references"></a><a href="#textdocument-references" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>textDocument/references</code></h3>
+<p>Metals finds symbol references for workspace sources but not external library
+dependencies.</p>
+<p>LSP does not support streaming references so when project sources have not been
+compiled at the point of a request, Metals returns immediately with potentially
+incomplete results and triggers a background cascade compilation to find new
+symbol references. If new symbol references are discovered after the background
+compilation completes, Metals sends a notification via <code>metals/status</code> and
+<code>window/logMessage</code> asking the user to run &quot;find references&quot; again.</p>
 <h3><a class="anchor" aria-hidden="true" id="textdocument-documentsymbol"></a><a href="#textdocument-documentsymbol" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>textDocument/documentSymbol</code></h3>
-<p>Returns <code>DocumentSymbol[]</code> by default and <code>SymbolInformation[]</code> when
-<code>-Dmetals.document-symbol=symbol-information</code>.</p>
+<p>Returns <code>DocumentSymbol[]</code> if the client declares support for hierarchical
+document symbol or <code>SymbolInformation[]</code> otherwise.</p>
+<h3><a class="anchor" aria-hidden="true" id="textdocument-formatting"></a><a href="#textdocument-formatting" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>textDocument/formatting</code></h3>
+<p>Formats the sources with the <a href="https://scalameta.org/scalafmt/">Scalafmt</a> version
+that is declared in <code>.scalafmt.conf</code>.</p>
+<ul>
+<li>when <code>.scalafmt.conf</code> is missing, Metals sends a <code>window/showMessageRequest</code>
+to create the file.</li>
+<li>when <code>.scalafmt.conf</code> exists but doesn't declare a <code>version</code> setting, Metals
+sends a <code>metals/inputBox</code> when supported (with fallback to
+<code>window/showMessageRequest</code> when unsupported) to prepend <code>version=$VERSION</code> to
+the <code>.scalafmt.conf</code> file.</li>
+<li>the first format request is usually slow because Metals needs to download
+Scalafmt artifacts from Maven Central. While the download happens, Metals adds
+a message in the status bar via <code>metals/status</code> and detailed download progress
+information is logged to <code>.metals/metals.log</code>.</li>
+</ul>
 <h3><a class="anchor" aria-hidden="true" id="workspace-didchangewatchedfiles"></a><a href="#workspace-didchangewatchedfiles" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>workspace/didChangeWatchedFiles</code></h3>
 <p>Optional. Metals uses a built-in file watcher for critical functionality such as
 Goto Definition so it is OK if an editor does not send
@@ -522,6 +636,9 @@ dynamic registration for file watching.</p>
     },
     {
       <span class="hljs-attr">"globPattern"</span>: <span class="hljs-string">"file:///to/workspace/project/*.{scala,sbt}"</span>
+    },
+    {
+      <span class="hljs-attr">"globPattern"</span>: <span class="hljs-string">"file:///to/workspace/project/project/*.{scala,sbt}"</span>
     },
     {
       <span class="hljs-attr">"globPattern"</span>: <span class="hljs-string">"file:///to/workspace/project/build.properties"</span>
@@ -547,7 +664,7 @@ non-critical notifications, see <code>metals/status</code>.</p>
 <p>Used to send critical and actionable notifications to the user. To notify the
 user about long running tasks that can be cancelled, the extension
 <code>metals/slowTask</code> is used instead.</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/metals/docs/editors/emacs.html"><span class="arrow-prev">← </span><span>Emacs</span></a><a class="docs-next button" href="/metals/docs/build-tools/overview.html"><span>Build Tools Overview</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#requirements">Requirements</a></li><li><a href="#starting-the-server">Starting the server</a></li><li><a href="#metals-server-properties">Metals server properties</a><ul class="toc-headings"><li><a href="#dmetalsverbose"><code>-Dmetals.verbose</code></a></li><li><a href="#dmetalsfile-watcher"><code>-Dmetals.file-watcher</code></a></li><li><a href="#dmetalsglob-syntax"><code>-Dmetals.glob-syntax</code></a></li><li><a href="#dmetalsstatus-bar"><code>-Dmetals.status-bar</code></a></li><li><a href="#dmetalsslow-task"><code>-Dmetals.slow-task</code></a></li><li><a href="#dmetalsexecute-client-command"><code>-Dmetals.execute-client-command</code></a></li><li><a href="#dmetalsshow-message"><code>-Dmetals.show-message</code></a></li><li><a href="#dmetalsshow-message-request"><code>-Dmetals.show-message-request</code></a></li><li><a href="#dmetalsdocument-symbol"><code>-Dmetals.document-symbol</code></a></li><li><a href="#dmetalshttp"><code>-Dmetals.http</code></a></li><li><a href="#dmetalsicons"><code>-Dmetals.icons</code></a></li><li><a href="#dmetalsexit-on-shutdown"><code>-Dmetals.exit-on-shutdown</code></a></li><li><a href="#dmetalsbloop-protocol"><code>-Dmetals.bloop-protocol</code></a></li><li><a href="#dmetalsstatistics"><code>-Dmetals.statistics</code></a></li><li><a href="#dmetalsh2auto-server"><code>-Dmetals.h2.auto-server</code></a></li><li><a href="#dmetalsjava-home"><code>-Dmetals.java-home</code></a></li><li><a href="#dmetalssbt-script"><code>-Dmetals.sbt-script</code></a></li><li><a href="#dmetalsscalafmt-config-path"><code>-Dmetals.scalafmt-config-path</code></a></li></ul></li><li><a href="#metals-user-configuration">Metals user configuration</a><ul class="toc-headings"><li><a href="#java-home-directory">Java Home directory</a></li><li><a href="#sbt-script">sbt script</a></li><li><a href="#scalafmt-config-path">Scalafmt config path</a></li></ul></li><li><a href="#metals-server-commands">Metals server commands</a><ul class="toc-headings"><li><a href="#import-build">Import build</a></li><li><a href="#connect-to-build-server">Connect to build server</a></li><li><a href="#scan-sources">Scan sources</a></li><li><a href="#run-doctor">Run doctor</a></li></ul></li><li><a href="#metals-client-commands">Metals client commands</a><ul class="toc-headings"><li><a href="#run-doctor-1">Run doctor</a></li><li><a href="#toggle-logs">Toggle logs</a></li><li><a href="#open-problems">Open problems</a></li></ul></li><li><a href="#metals-http-client">Metals HTTP client</a></li><li><a href="#metals-lsp-extensions">Metals LSP extensions</a><ul class="toc-headings"><li><a href="#metals-slowtask"><code>metals/slowTask</code></a></li><li><a href="#metals-status"><code>metals/status</code></a></li><li><a href="#metals-didfocustextdocument"><code>metals/didFocusTextDocument</code></a></li><li><a href="#metals-executeclientcommand"><code>metals/executeClientCommand</code></a></li></ul></li><li><a href="#language-server-protocol">Language Server Protocol</a><ul class="toc-headings"><li><a href="#initialize"><code>initialize</code></a></li><li><a href="#initialized"><code>initialized</code></a></li><li><a href="#shutdown"><code>shutdown</code></a></li><li><a href="#exit"><code>exit</code></a></li><li><a href="#cancelrequest"><code>$/cancelRequest</code></a></li><li><a href="#client-registercapability"><code>client/registerCapability</code></a></li><li><a href="#textdocument-didopen"><code>textDocument/didOpen</code></a></li><li><a href="#textdocument-didchange"><code>textDocument/didChange</code></a></li><li><a href="#textdocument-didclose"><code>textDocument/didClose</code></a></li><li><a href="#textdocument-didsave"><code>textDocument/didSave</code></a></li><li><a href="#textdocument-publishdiagnostics"><code>textDocument/publishDiagnostics</code></a></li><li><a href="#textdocument-definition"><code>textDocument/definition</code></a></li><li><a href="#textdocument-documentsymbol"><code>textDocument/documentSymbol</code></a></li><li><a href="#workspace-didchangewatchedfiles"><code>workspace/didChangeWatchedFiles</code></a></li><li><a href="#workspace-executecommands"><code>workspace/executeCommands</code></a></li><li><a href="#workspace-didchangeconfiguration"><code>workspace/didChangeConfiguration</code></a></li><li><a href="#window-logmessage"><code>window/logMessage</code></a></li><li><a href="#window-showmessage"><code>window/showMessage</code></a></li><li><a href="#window-showmessagerequest"><code>window/showMessageRequest</code></a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer" style="background-color:#1B555C"><section class="sitemap"><a href="/metals/" class="nav-home"><img src="/metals/img/scalameta-logo.png" alt="Metals" width="66" height="58"/></a><div><h5>Docs</h5><a href="/metals/docs/editors/overview.html">Text Editors</a><a href="/metals/docs/build-tools/overview.html">Build Tools</a><a href="/metals/docs/contributors/project-goals.html">Project Goals</a><a href=" /metals/docs/contributors/getting-started.html">Contributing</a></div><div><h5>Community</h5><a href="https://gitter.im/scalameta/metals" target="_blank">Chat on Gitter</a></div><div><h5>More</h5><a href="https://github.com/gabro/metals" target="_blank">GitHub</a></div></section><section class="copyright">Copyright © 2018 Metals</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/metals/docs/editors/emacs.html"><span class="arrow-prev">← </span><span>Emacs</span></a><a class="docs-next button" href="/metals/docs/build-tools/overview.html"><span>Overview</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#requirements">Requirements</a></li><li><a href="#starting-the-server">Starting the server</a></li><li><a href="#metals-server-properties">Metals server properties</a><ul class="toc-headings"><li><a href="#dmetalsverbose"><code>-Dmetals.verbose</code></a></li><li><a href="#dmetalsfile-watcher"><code>-Dmetals.file-watcher</code></a></li><li><a href="#dmetalsglob-syntax"><code>-Dmetals.glob-syntax</code></a></li><li><a href="#dmetalsstatus-bar"><code>-Dmetals.status-bar</code></a></li><li><a href="#dmetalsslow-task"><code>-Dmetals.slow-task</code></a></li><li><a href="#dmetalsinput-box"><code>-Dmetals.input-box</code></a></li><li><a href="#dmetalsexecute-client-command"><code>-Dmetals.execute-client-command</code></a></li><li><a href="#dmetalsshow-message"><code>-Dmetals.show-message</code></a></li><li><a href="#dmetalsshow-message-request"><code>-Dmetals.show-message-request</code></a></li><li><a href="#dmetalshttp"><code>-Dmetals.http</code></a></li><li><a href="#dmetalsicons"><code>-Dmetals.icons</code></a></li><li><a href="#dmetalsexit-on-shutdown"><code>-Dmetals.exit-on-shutdown</code></a></li><li><a href="#dmetalsbloop-protocol"><code>-Dmetals.bloop-protocol</code></a></li><li><a href="#dmetalsstatistics"><code>-Dmetals.statistics</code></a></li><li><a href="#dmetalsh2auto-server"><code>-Dmetals.h2.auto-server</code></a></li><li><a href="#dmetalsjava-home"><code>-Dmetals.java-home</code></a></li><li><a href="#dmetalssbt-script"><code>-Dmetals.sbt-script</code></a></li><li><a href="#dmetalsscalafmt-config-path"><code>-Dmetals.scalafmt-config-path</code></a></li><li><a href="#dmetalssignature-helpcommand"><code>-Dmetals.signature-help.command</code></a></li><li><a href="#dmetalscompletioncommand"><code>-Dmetals.completion.command</code></a></li><li><a href="#dmetalspcdebug"><code>-Dmetals.pc.debug</code></a></li></ul></li><li><a href="#metals-user-configuration">Metals user configuration</a><ul class="toc-headings"><li><a href="#java-home-directory">Java Home directory</a></li><li><a href="#sbt-script">sbt script</a></li><li><a href="#scalafmt-config-path">Scalafmt config path</a></li></ul></li><li><a href="#metals-server-commands">Metals server commands</a><ul class="toc-headings"><li><a href="#import-build">Import build</a></li><li><a href="#connect-to-build-server">Connect to build server</a></li><li><a href="#scan-sources">Scan sources</a></li><li><a href="#run-doctor">Run doctor</a></li><li><a href="#cascade-compile">Cascade compile</a></li><li><a href="#cancel-compilation">Cancel compilation</a></li><li><a href="#switch-build-server">Switch build server</a></li></ul></li><li><a href="#metals-client-commands">Metals client commands</a><ul class="toc-headings"><li><a href="#run-doctor-1">Run doctor</a></li><li><a href="#toggle-logs">Toggle logs</a></li><li><a href="#open-problems">Open problems</a></li></ul></li><li><a href="#metals-http-client">Metals HTTP client</a></li><li><a href="#metals-lsp-extensions">Metals LSP extensions</a><ul class="toc-headings"><li><a href="#metals-slowtask"><code>metals/slowTask</code></a></li><li><a href="#metals-status"><code>metals/status</code></a></li><li><a href="#metals-didfocustextdocument"><code>metals/didFocusTextDocument</code></a></li><li><a href="#metals-executeclientcommand"><code>metals/executeClientCommand</code></a></li><li><a href="#metals-inputbox"><code>metals/inputBox</code></a></li></ul></li><li><a href="#language-server-protocol">Language Server Protocol</a><ul class="toc-headings"><li><a href="#initialize"><code>initialize</code></a></li><li><a href="#initialized"><code>initialized</code></a></li><li><a href="#shutdown"><code>shutdown</code></a></li><li><a href="#exit"><code>exit</code></a></li><li><a href="#cancelrequest"><code>$/cancelRequest</code></a></li><li><a href="#client-registercapability"><code>client/registerCapability</code></a></li><li><a href="#textdocument-didopen"><code>textDocument/didOpen</code></a></li><li><a href="#textdocument-didchange"><code>textDocument/didChange</code></a></li><li><a href="#textdocument-didclose"><code>textDocument/didClose</code></a></li><li><a href="#textdocument-didsave"><code>textDocument/didSave</code></a></li><li><a href="#textdocument-publishdiagnostics"><code>textDocument/publishDiagnostics</code></a></li><li><a href="#textdocument-definition"><code>textDocument/definition</code></a></li><li><a href="#textdocument-references"><code>textDocument/references</code></a></li><li><a href="#textdocument-documentsymbol"><code>textDocument/documentSymbol</code></a></li><li><a href="#textdocument-formatting"><code>textDocument/formatting</code></a></li><li><a href="#workspace-didchangewatchedfiles"><code>workspace/didChangeWatchedFiles</code></a></li><li><a href="#workspace-executecommands"><code>workspace/executeCommands</code></a></li><li><a href="#workspace-didchangeconfiguration"><code>workspace/didChangeConfiguration</code></a></li><li><a href="#window-logmessage"><code>window/logMessage</code></a></li><li><a href="#window-showmessage"><code>window/showMessage</code></a></li><li><a href="#window-showmessagerequest"><code>window/showMessageRequest</code></a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer" style="background-color:#1B555C"><section class="sitemap"><a href="/metals/" class="nav-home"><img src="/metals/img/scalameta-logo.png" alt="Metals" width="66" height="58"/></a><div><h5>Docs</h5><a href="/metals/docs/editors/overview.html">Text Editors</a><a href="/metals/docs/build-tools/overview.html">Build Tools</a><a href="/metals/docs/contributors/project-goals.html">Project Goals</a><a href=" /metals/docs/contributors/getting-started.html">Contributing</a></div><div><h5>Community</h5><a href="https://gitter.im/scalameta/metals" target="_blank">Chat on Gitter</a></div><div><h5>More</h5><a href="https://github.com/scalameta/metals" target="_blank">GitHub</a></div></section><section class="copyright">Copyright © 2019 Metals</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
                 document.addEventListener('keyup', function(e) {
                   if (e.target !== document.body) {
                     return;
