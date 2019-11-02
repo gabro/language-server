@@ -168,6 +168,7 @@ class MetalsLanguageServer(
   private var doctor: Doctor = _
   var httpServer: Option[MetalsHttpServer] = None
   var treeView: TreeViewProvider = NoopTreeViewProvider
+  private var decorationsProvider: DecorationsProvider = _
 
   def connectToLanguageClient(client: MetalsLanguageClient): Unit = {
     languageClient.underlying = new ConfiguredLanguageClient(client, config)(ec)
@@ -396,6 +397,7 @@ class MetalsLanguageServer(
         sh
       )
     }
+    decorationsProvider = new DecorationsProvider(semanticdbs, workspace)
   }
 
   def setupJna(): Unit = {
@@ -1182,6 +1184,14 @@ class MetalsLanguageServer(
         )
         .orNull
     }.asJava
+
+  @JsonRequest("metals/decorations")
+  def references(
+      params: DecorationParams
+  ): CompletableFuture[DecorationResult] =
+    CancelTokens { _ =>
+      decorationsProvider.decorations(params)
+    }
 
   private def slowConnectToBuildServer(
       forceImport: Boolean
