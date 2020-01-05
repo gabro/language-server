@@ -477,13 +477,14 @@ object RenameLspSuite extends BaseLspSuite("rename") {
        |case class Name(<<va@@lue>>: String)
        |
        |object Main {
-       |  val name1 = Name(value = "42")
+       |  val name1 = Name(<<value>> = "42")
        |   .copy(<<value>> = "43")
        |   .<<value>>
-       |  val name2 = new Name(value = "44")
+       |  val name2 = new Name(<<value>> = "44")
        |}
        |""".stripMargin,
-    newName = "name"
+    newName = "name",
+    expectFailure = true
   )
 
   // https://github.com/scalameta/scalameta/issues/1909
@@ -494,11 +495,12 @@ object RenameLspSuite extends BaseLspSuite("rename") {
        |trait <<A@@BC>>
        |class CBD[T <: <<AB@@C>>]
        |object Main{
-       |  val a = classOf[ABC]
+       |  val a = classOf[<<ABC>>]
        |  val b = new CBD[<<ABC>>]
        |}
        |""".stripMargin,
-    newName = "Animal"
+    newName = "Animal",
+    expectFailure = true
   )
 
   def renamed(
@@ -507,7 +509,8 @@ object RenameLspSuite extends BaseLspSuite("rename") {
       newName: String,
       nonOpened: Set[String] = Set.empty,
       breakingChange: String => String = identity[String],
-      fileRenames: Map[String, String] = Map.empty
+      fileRenames: Map[String, String] = Map.empty,
+      expectFailure: Boolean = false
   ): Unit =
     check(
       name,
@@ -516,7 +519,8 @@ object RenameLspSuite extends BaseLspSuite("rename") {
       notRenamed = false,
       nonOpened = nonOpened,
       breakingChange,
-      fileRenames
+      fileRenames,
+      expectFailure
     )
 
   def same(
@@ -537,9 +541,10 @@ object RenameLspSuite extends BaseLspSuite("rename") {
       notRenamed: Boolean = false,
       nonOpened: Set[String] = Set.empty,
       breakingChange: String => String = identity[String],
-      fileRenames: Map[String, String] = Map.empty
+      fileRenames: Map[String, String] = Map.empty,
+      expectFailure: Boolean = false
   ): Unit = {
-    testAsync(name) {
+    testAsync(name, expectFailure = expectFailure) {
       cleanWorkspace()
       val allMarkersRegex = "(<<|>>|@@|##.*##)"
       val files = FileLayout.mapFromString(input)
